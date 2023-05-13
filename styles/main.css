@@ -1,0 +1,21 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: 'border-box';
+	font-family: 'inherit';
+	font-size: 'inherit';
+	font-weight: 'inherit';
+	color: 'inherit';
+	background-color: 'transparent';
+	border: 0;
+	outline: 0;
+	vertical-align: 'baseline';
+	text-decoration: 'none';
+	list-style: 'none';
+}
+
+body {
+	color: '#000';
+	background-color: '#fff';
+	font-size: '16px';
+};
