@@ -25,6 +25,72 @@ let frameY = 0;
 let gameFrame = 0;
 const STAGGER_FRAMES = 10;
 
+// Main container to hold all animations,
+// rather than having to calculate our
+// frames from the spritesheet individually,
+// it is much better if we can simply
+// fetch our animation list and loop
+// through each frame so we know that
+// we will always get the full animation loop.
+const spriteAnimations = [];
+
+// Simple map for mapping animations
+// to the spritesheet
+const animationStates = [
+	{
+		name: 'idle',
+		frames: 7,
+	},
+	{
+		name: 'jump',
+		frames: 7,
+	}
+];
+
+// Since our spritesheet is not irregular
+// we only need the name and frames properties
+// to map the locations of each frame.
+//
+// We now loop over each of our animation states and
+// create our location objects.
+//
+// Essentially we create a data structure which we can
+// easily associate our animation frames with the
+// name of the animation such as:
+//
+// jump : {
+// 	"loc": [
+// 			{
+// 					"x": 0,
+// 					"y": 523
+// 			},
+// 			{
+// 					"x": 575,
+// 					"y": 523
+// 			},
+// 	    ...
+// 	 ]
+// }
+//
+// As this is calculated from the number of frames
+// we declare in eac object of our animationStates
+// array, this means we can vary the number
+// of states per animation so that we ensure we
+// get the full animation loop of each column
+// without getting our blank entries.
+animationStates.forEach((state, index) => {
+	let frames = {
+		loc: []
+	};
+
+	for (let j = 0; j < state.frames; j++) {
+		let positionX = j * spriteWidth;
+		let positionY = index * spriteHeight;
+		frames.loc.push({ x: positionX, y: positionY });
+	}
+	spriteAnimations[state.name] = frames;
+});
+console.log(spriteAnimations);
 
 function animate() {
 	ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
