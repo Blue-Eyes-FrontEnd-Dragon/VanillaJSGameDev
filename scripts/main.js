@@ -19,9 +19,6 @@ playerImage.src = '../images/shadow_dog.png';
 const spriteWidth = (PLAYER_SPRITESHEET.widthInPx / PLAYER_SPRITESHEET.columns) + 2;
 const spriteHeight = (PLAYER_SPRITESHEET.heightInPx / PLAYER_SPRITESHEET.rows);
 
-let frameX = 0;
-let frameY = 0;
-
 let gameFrame = 0;
 const STAGGER_FRAMES = 10;
 
@@ -35,7 +32,16 @@ const STAGGER_FRAMES = 10;
 const spriteAnimations = [];
 
 // Simple map for mapping animations
-// to the spritesheet
+// to the spritesheet.
+//
+// Note that the order of the array items is essentialy,
+// as it must map to the order of rows for our animations
+// in our spritesheet.
+//
+// We must also take care that our frames match the
+// number of frames to the number of columns to our
+// spritesheet, if we have any additional missing frames we
+// will get blinking, too few, we cut the animation short.
 const animationStates = [
 	{
 		name: 'idle',
@@ -44,6 +50,38 @@ const animationStates = [
 	{
 		name: 'jump',
 		frames: 7,
+	},
+	{
+		name: 'fall',
+		frames: 7,
+	},
+	{
+		name: 'run',
+		frames: 9,
+	},
+	{
+		name: 'dizzy',
+		frames: 11,
+	},
+	{
+		name: 'sit',
+		frames: 5,
+	},
+	{
+		name: 'roll',
+		frames: 7,
+	},
+	{
+		name: 'bite',
+		frames: 7,
+	},
+	{
+		name: 'ko',
+		frames: 12,
+	},
+	{
+		name: 'getHit',
+		frames: 4,
 	}
 ];
 
@@ -90,7 +128,6 @@ animationStates.forEach((state, index) => {
 	}
 	spriteAnimations[state.name] = frames;
 });
-console.log(spriteAnimations);
 
 function animate() {
 	ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -107,18 +144,19 @@ function animate() {
 	// By us modulo we ensure that the variable increase
 	// is limited to a range between 0 and 6
 	// this is because 0 % 6 = 0, 1 % 6 = 1...
-	let position = Math.floor(gameFrame / STAGGER_FRAMES) % 6;
+	let position = Math.floor(gameFrame / STAGGER_FRAMES) % spriteAnimations['idle'].loc.length;
 
 	// We multiply the width by the position
 	// this is because we want the sprite
 	// at the specified position, but we need to
 	// account for the width of each sprite in the row.
-	frameX = spriteWidth * position;
+	let frameX = spriteAnimations['idle'].loc[position].x;
+	let frameY = spriteAnimations['idle'].loc[position].y;
 
 	ctx.drawImage(
 		playerImage,
 		frameX,
-		spriteHeight * frameY,
+		frameY,
 		spriteWidth,
 		spriteHeight,
 		0,
