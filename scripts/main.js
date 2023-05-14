@@ -16,6 +16,16 @@ const FRAME_DELAY = 200;
 const playerImage = new Image();
 playerImage.src = '../images/shadow_dog.png';
 
+// We cut out a single frame of the spritesheet using drawImage.
+// We can target a single frame out of a spritesheet by passing
+// arguments to drawImage.
+
+// Here we calculate this from the width and height divided by the number
+// of columns and rows of images in our spritesheet. This allows us to
+// cut a single frame.
+
+// Frames are then animated by running through each column
+// of the spritesheet.
 const spriteWidth = (PLAYER_SPRITESHEET.widthInPx / PLAYER_SPRITESHEET.columns) + 2;
 const spriteHeight = (PLAYER_SPRITESHEET.heightInPx / PLAYER_SPRITESHEET.rows);
 
