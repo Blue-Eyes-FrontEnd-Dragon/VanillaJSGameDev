@@ -19,28 +19,52 @@ playerImage.src = '../images/shadow_dog.png';
 const spriteWidth = (PLAYER_SPRITESHEET.widthInPx / PLAYER_SPRITESHEET.columns) + 2;
 const spriteHeight = (PLAYER_SPRITESHEET.heightInPx / PLAYER_SPRITESHEET.rows);
 
-let x = 1;
-let y = 1;
+let frameX = 0;
+let frameY = 0;
+
+let gameFrame = 0;
+const STAGGER_FRAMES = 10;
+
 
 function animate() {
-	ctx.clearRect(0, 0, CANVAS_WIDTH,CANVAS_HEIGHT);
+	ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-	ctx.drawImage(playerImage, spriteWidth * x, spriteHeight * y, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
+	// Calculate the number of frames.
+	// As gameframe cycles through 1 to 5
+	// we need to calculate the number of animation
+	// loops to position get to number 1 of the animation frame.
 
-	x++;
-	y++;
+	// This means that the position will increase by 1
+	// each time our stagger frame increases by 5,
+	// slowing our animation play to be perceivable.
 
-	if (x > PLAYER_SPRITESHEET.rows - 8) {
-		x = 0;
-	}
+	// By us modulo we ensure that the variable increase
+	// is limited to a range between 0 and 6
+	// this is because 0 % 6 = 0, 1 % 6 = 1...
+	let position = Math.floor(gameFrame / STAGGER_FRAMES) % 6;
 
-	if (y > PLAYER_SPRITESHEET.columns - 10) {
-		y = 0;
-	}
+	// We multiply the width by the position
+	// this is because we want the sprite
+	// at the specified position, but we need to
+	// account for the width of each sprite in the row.
+	frameX = spriteWidth * position;
 
-	setTimeout(() => {
-		requestAnimationFrame(animate);
-	}, FRAME_DELAY);
+	ctx.drawImage(
+		playerImage,
+		frameX,
+		spriteHeight * frameY,
+		spriteWidth,
+		spriteHeight,
+		0,
+		0,
+		spriteWidth,
+		spriteHeight
+	);
+	gameFrame++;
+
+	// infinite loop animation
+	// via recurrent call.
+	requestAnimationFrame(animate);
 }
 
 animate();
