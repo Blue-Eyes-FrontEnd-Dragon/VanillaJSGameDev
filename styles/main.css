@@ -19,3 +19,7 @@ body {
 	background-color: '#fff';
 	font-size: '16px';
 };
+
+.controls, select, option {
+	font-size: 25px;
+}

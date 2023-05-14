@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title></title>
+		<title>SpriteSheet Animations</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="">
@@ -21,6 +21,7 @@
 			width: 100vh;
 			height: 100vh;
 			display: flex;
+			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 		"
@@ -32,6 +33,21 @@
 			"
 			>
 			</canvas>
+			<div class="controls" style="padding: 20px; color: white; font-family: Arial, Helvetica, sans-serif">
+				<label for="animations">Choose Animation</label>
+				<select id="animations" name="animations">
+					<option value="idle">Idle</option>
+					<option value="jump">Jump</option>
+					<option value="fall">Fall</option>
+					<option value="run">Run</option>
+					<option value="dizzy">Dizzy</option>
+					<option value="sit">Sit</option>
+					<option value="roll">Roll</option>
+					<option value="bite">Bite</option>
+					<option value="ko">KO</option>
+					<option value="getHit">getHit</option>
+				</select>
+			</div>
 		</div>
 	</body>
 </html>

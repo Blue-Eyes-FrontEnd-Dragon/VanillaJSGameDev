@@ -1,3 +1,9 @@
+let playerState = 'idle';
+const dropdown = document.querySelector('#animations');
+dropdown.addEventListener('change', (event) => {
+	playerState = event.target.value;
+});
+
 const canvas = document.querySelector('#canvas');
 const ctx = canvas.getContext('2d');
 
@@ -96,7 +102,7 @@ const animationStates = [
 // easily associate our animation frames with the
 // name of the animation such as:
 //
-// jump : {
+// idle : {
 // 	"loc": [
 // 			{
 // 					"x": 0,
@@ -144,14 +150,14 @@ function animate() {
 	// By us modulo we ensure that the variable increase
 	// is limited to a range between 0 and 6
 	// this is because 0 % 6 = 0, 1 % 6 = 1...
-	let position = Math.floor(gameFrame / STAGGER_FRAMES) % spriteAnimations['idle'].loc.length;
+	let position = Math.floor(gameFrame / STAGGER_FRAMES) % spriteAnimations[playerState].loc.length;
 
 	// We multiply the width by the position
 	// this is because we want the sprite
 	// at the specified position, but we need to
 	// account for the width of each sprite in the row.
-	let frameX = spriteAnimations['idle'].loc[position].x;
-	let frameY = spriteAnimations['idle'].loc[position].y;
+	let frameX = spriteAnimations[playerState].loc[position].x;
+	let frameY = spriteAnimations[playerState].loc[position].y;
 
 	ctx.drawImage(
 		playerImage,
