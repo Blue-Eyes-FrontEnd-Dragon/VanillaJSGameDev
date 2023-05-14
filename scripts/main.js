@@ -20,7 +20,7 @@ const PLAYER_SPRITESHEET = {
 const FRAME_DELAY = 200;
 
 const playerImage = new Image();
-playerImage.src = '../images/shadow_dog.png';
+playerImage.src = 'https://blue-eyes-frontend-dragon.github.io/VanillaJSGameDev/images/shadow_dog.png';
 
 const spriteWidth = (PLAYER_SPRITESHEET.widthInPx / PLAYER_SPRITESHEET.columns) + 2;
 const spriteHeight = (PLAYER_SPRITESHEET.heightInPx / PLAYER_SPRITESHEET.rows);
